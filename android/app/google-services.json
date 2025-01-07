@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "409004356989",
+    "project_id": "nyala-abangku",
+    "storage_bucket": "nyala-abangku.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:409004356989:android:4669f7d6ff7624940e8814",
+        "android_client_info": {
+          "package_name": "com.example.firebase_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "409004356989-ab5s52k11d773r4ch85jse0vintk2qcr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUunYScebxSSKa2YKK7WxWbBZO8fBoTgs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "409004356989-ab5s52k11d773r4ch85jse0vintk2qcr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
