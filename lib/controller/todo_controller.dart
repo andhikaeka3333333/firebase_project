@@ -3,36 +3,36 @@ import 'package:get/get.dart';
 
 class TodoController extends GetxController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final RxList<Map<String, dynamic>> todos = <Map<String, dynamic>>[].obs;
+  final RxList<Map<String, dynamic>> expenses = <Map<String, dynamic>>[].obs;
 
   @override
   void onInit() {
     super.onInit();
-    fetchTodos();
+    fetchData();
   }
 
-  void fetchTodos() {
-    _firestore.collection('todos').snapshots().listen((snapshot) {
-      todos.value = snapshot.docs
-          .map((doc) => {'id': doc.id, 'title': doc['title'], 'completed': doc['completed']})
+  void fetchData() {
+    _firestore.collection('expenses').snapshots().listen((snapshot) {
+      expenses.value = snapshot.docs
+          .map((doc) => {'id': doc.id, 'title': doc['title'], 'price': doc['price']})
           .toList();
     });
   }
 
-  Future<void> addTodo(String title) async {
-    await _firestore.collection('todos').add({
+  Future<void> addExpense(String title, String price) async {
+    await _firestore.collection('expenses').add({
       'title': title,
-      'completed': false,
+      'price': price,
     });
   }
 
-  Future<void> updateTodo(String id, bool completed) async {
-    await _firestore.collection('todos').doc(id).update({
-      'completed': completed,
-    });
-  }
+  // Future<void> updateExpense(String id, String price) async {
+  //   await _firestore.collection('expenses').doc(id).update({
+  //     'completed': completed,
+  //   });
+  // }
 
-  Future<void> deleteTodo(String id) async {
-    await _firestore.collection('todos').doc(id).delete();
+  Future<void> deleteExpense(String id) async {
+    await _firestore.collection('expenses').doc(id).delete();
   }
 }

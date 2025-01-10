@@ -9,25 +9,27 @@ class TodoListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TodoController controller = Get.put(TodoController());
-    final TextEditingController textController = TextEditingController();
+    final TextEditingController titleController = TextEditingController();
+    final TextEditingController priceController = TextEditingController();
 
     return Scaffold(
       backgroundColor: Color(0xffb5cfec),
       appBar: AppBar(
         backgroundColor: Color(0xff4da1a9),
         title: const Text(
-          'To-Do List',
+          'Expenses List 💰',
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
         centerTitle: true,
       ),
-      body: Column(
+      body:
+      Column(
         children: [
           Expanded(
             child: Obx(() => ListView.builder(
-                  itemCount: controller.todos.length,
+                  itemCount: controller.expenses.length,
                   itemBuilder: (context, index) {
-                    final todo = controller.todos[index];
+                    final todo = controller.expenses[index];
                     return Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 4.0, horizontal: 8.0),
@@ -40,25 +42,17 @@ class TodoListPage extends StatelessWidget {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
-                          tileColor: todo['completed']
-                              ? Colors.green.shade50
-                              : Colors.white,
                           title: Text(
                             todo['title'],
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
-                              decoration: todo['completed']
-                                  ? TextDecoration.lineThrough
-                                  : TextDecoration.none,
                             ),
                           ),
-                          leading: Checkbox(
-                            activeColor: Color(0xff4da1a9),
-                            checkColor: Colors.white,
-                            value: todo['completed'],
-                            onChanged: (value) {
-                              controller.updateTodo(todo['id'], value!);
-                            },
+                          subtitle: Text(
+                            "Rp " + todo['price'].toString(),
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                           trailing: IconButton(
                             icon: const Icon(Icons.delete, color: Colors.red),
@@ -78,7 +72,7 @@ class TodoListPage extends StatelessWidget {
                                 buttonColor: Colors.red,
                                 onCancel: () {},
                                 onConfirm: () {
-                                  controller.deleteTodo(todo['id']);
+                                  controller.deleteExpense(todo['id']);
                                   Get.back();
                                 },
                               );
@@ -109,7 +103,7 @@ class TodoListPage extends StatelessWidget {
                 Expanded(
                   child: TextFormField(
                     style: TextStyle(color: Color(0xfff6f4f0)),
-                    controller: textController,
+                    controller: titleController,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Color(0xfff6f4f0)),
@@ -117,7 +111,24 @@ class TodoListPage extends StatelessWidget {
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Color(0xfff6f4f0)),
                       ),
-                      labelText: "Add a new task",
+                      labelText: "Rencana Belanja",
+                      labelStyle: TextStyle(color: Color(0xfff6f4f0)),
+                      border: OutlineInputBorder(),
+                    ),
+                    cursorColor: Color(0xfff6f4f0),
+                  ),
+                ),Expanded(
+                  child: TextFormField(
+                    style: TextStyle(color: Color(0xfff6f4f0)),
+                    controller: priceController,
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xfff6f4f0)),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xfff6f4f0)),
+                      ),
+                      labelText: "Harga",
                       labelStyle: TextStyle(color: Color(0xfff6f4f0)),
                       border: OutlineInputBorder(),
                     ),
@@ -127,9 +138,10 @@ class TodoListPage extends StatelessWidget {
                 const SizedBox(width: 8),
                 ElevatedButton(
                   onPressed: () {
-                    if (textController.text.isNotEmpty) {
-                      controller.addTodo(textController.text);
-                      textController.clear();
+                    if (titleController.text.isNotEmpty && priceController.text.isNotEmpty) {
+                      controller.addExpense(titleController.text, priceController.text);
+                      titleController.clear();
+                      priceController.clear();
                     }
                   },
                   style: ElevatedButton.styleFrom(
