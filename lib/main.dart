@@ -1,7 +1,8 @@
-import 'package:firebase_project/views/todo_list_page.dart';
-import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_project/routes/myapp_route.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -10,16 +11,43 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'To-Do-App',
-      home: Scaffold(
-          body: TodoListPage()
-      ),
+      title: 'Menyala Abangku',
+      initialRoute: MyappRoute.login,
+      getPages: AppPages.pages,
     );
   }
 }
+
+
+
+
+// import 'package:firebase_project/views/todo_list_page.dart';
+// import 'package:flutter/material.dart';
+// import 'package:firebase_core/firebase_core.dart';
+// import 'package:get/get.dart';
+//
+// void main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+//   await Firebase.initializeApp();
+//   runApp(const MyApp());
+// }
+//
+// class MyApp extends StatelessWidget {
+//   const MyApp({Key? key}) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return GetMaterialApp(
+//       debugShowCheckedModeBanner: false,
+//       title: 'To-Do-App',
+//       home: Scaffold(
+//           body: TodoListPage()
+//       ),
+//     );
+//   }
+// }
