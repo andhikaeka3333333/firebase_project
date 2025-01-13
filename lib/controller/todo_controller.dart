@@ -26,13 +26,14 @@ class TodoController extends GetxController {
     });
   }
 
-  // Future<void> updateExpense(String id, String price) async {
-  //   await _firestore.collection('expenses').doc(id).update({
-  //     'completed': completed,
-  //   });
-  // }
-
   Future<void> deleteExpense(String id) async {
     await _firestore.collection('expenses').doc(id).delete();
+  }
+
+  Future<void> updateExpense(String id, String newTitle, String newPrice) async {
+    await _firestore.collection('expenses').doc(id).update({
+      'title': newTitle,
+      'price': newPrice,
+    });
   }
 }
