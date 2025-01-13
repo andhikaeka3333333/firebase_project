@@ -30,7 +30,7 @@ class AuthController extends GetxController {
 
         await _auth.signInWithCredential(credential);
         user.value = _auth.currentUser;
-        Get.offNamed(MyappRoute.home);
+        Get.offNamed(MyappRoute.navbar);
       }
     } catch (e) {
       Get.snackbar('Error', e.toString());
