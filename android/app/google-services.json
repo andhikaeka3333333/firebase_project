@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "409004356989",
+    "project_id": "nyala-abangku",
+    "storage_bucket": "nyala-abangku.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:409004356989:android:4669f7d6ff7624940e8814",
+        "android_client_info": {
+          "package_name": "com.example.firebase_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "409004356989-54rqflp5i4sbhi16vjk23saoqaur3sp2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.firebase_project",
+            "certificate_hash": "4eaa4d3e54d754da375c4d7f1959d098bfc48064"
+          }
+        },
+        {
+          "client_id": "409004356989-et50s2adovv4pmd9pc3dqoft9i05r27c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.firebase_project",
+            "certificate_hash": "88c13b642a3506ee66a0045200d783b262644cd4"
+          }
+        },
+        {
+          "client_id": "409004356989-fc3cne506ou6ut317mdm2dsvp4qiqiq5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.firebase_project",
+            "certificate_hash": "a1d4bdffc04814e0338557a5a04f6db3da884c46"
+          }
+        },
+        {
+          "client_id": "409004356989-ab5s52k11d773r4ch85jse0vintk2qcr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUunYScebxSSKa2YKK7WxWbBZO8fBoTgs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "409004356989-ab5s52k11d773r4ch85jse0vintk2qcr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
