@@ -2,10 +2,12 @@ import 'package:firebase_project/bindings/navbar_binding.dart';
 import 'package:firebase_project/bindings/todo_binding.dart';
 import 'package:firebase_project/controller/navbar_controller.dart';
 import 'package:firebase_project/navbar/navbar.dart';
+import 'package:firebase_project/views/notification_page.dart';
 import 'package:firebase_project/views/todo_list_page.dart';
 import 'package:get/get.dart';
 
 import '../bindings/auth_binding.dart';
+import '../bindings/notif_binding.dart';
 import '../views/home_page.dart';
 import '../views/login_page.dart';
 
@@ -15,6 +17,7 @@ class MyappRoute {
   static const home = '/home';
   static const todo = '/todo';
   static const navbar = '/navbar';
+  static const notif = '/notification';
 }
 
 class AppPages {
@@ -38,6 +41,11 @@ class AppPages {
       name: '/todo',
       page: () => const TodoListPage(),
       binding: TodoBinding(),
+    ),
+    GetPage(
+      name: '/notification',
+      page: () => const NotificationPage(),
+      binding: NotifBinding(),
     ),
   ];
 }

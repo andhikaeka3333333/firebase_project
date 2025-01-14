@@ -41,6 +41,7 @@ dependencies:
   google_sign_in:
   firebase_database:
   get:
+  firebase_messaging:
 
 
 dev_dependencies:
