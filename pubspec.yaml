@@ -68,8 +68,27 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - asset/images/firebase.png
-    - asset/images/google_logo.png
+    - assets/images/
+    - assets/fonts/
+
+  fonts:
+    - family: Outfit
+      fonts:
+        - asset: assets/fonts/Outfit-ExtraLight.ttf
+          weight: 200
+        - asset: assets/fonts/Outfit-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Outfit-Regular.ttf
+        - asset: assets/fonts/Outfit-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Outfit-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Outfit-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Outfit-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/Outfit-Black.ttf
+          weight: 900
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
