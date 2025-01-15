@@ -10,7 +10,7 @@ class NotificationPage extends StatelessWidget {
     final message = Get.arguments as RemoteMessage;
 
     return Scaffold(
-      appBar: AppBar(title: Text("Notifications Page"),
+      appBar: AppBar(title: const Text("Notifications Page"),
       ),
       body: Column(
         children: [

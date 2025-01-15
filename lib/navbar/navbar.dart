@@ -1,4 +1,3 @@
-import 'package:firebase_project/controller/auth_controller.dart';
 import 'package:firebase_project/controller/navbar_controller.dart';
 import 'package:firebase_project/views/home_page.dart';
 import 'package:firebase_project/views/todo_list_page.dart';
