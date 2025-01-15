@@ -43,6 +43,7 @@ class AppTheme {
   static const Color hintColor = AppTheme.white60;
   static const Color cursorColor = AppTheme.primaryColor;
 
+
   static CustomTextTheme textTheme = CustomTextTheme();
 
   static ThemeData getThemeData() {

@@ -1,134 +1,121 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controller/auth_controller.dart';
+import '../utils/theme.dart';
+import '../widgets/my_button.dart';
 import '../widgets/my_color.dart';
 import '../widgets/my_text.dart';
-
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     final AuthController authController = Get.find();
-
     return Scaffold(
+      backgroundColor: primaryBackground,
       appBar: AppBar(
-        backgroundColor: Colors.orange,
-        elevation: 4,
-        title:const MyText(hintText: 'Home', fontSize: 20, colors: white,fontWeight: FontWeight.bold,),
+        backgroundColor: primaryBackground,
+        title: const MyText(
+          text: 'Profile Page',
+          fontSize: 20,
+          colors: white,
+          fontWeight: FontWeight.bold,
+        ),
         centerTitle: true,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.notifications, color: Colors.white),
-            onPressed: () {
-
-            },
-          ),
-        ],
       ),
-      body: Center(
-        child: Obx(() {
-          final user = authController.user.value;
-          if (user != null) {
-            return Center(
-              child: Container(
-                width: 350,
-                padding: const EdgeInsets.all(16),
+      body: Obx(() {
+        final user = authController.user.value;
+        if (user != null) {
+          return Column(
+            children: [
+              Image.asset(
+                'assets/images/background.png',
+                width: Get.width,
+              ),
+              SizedBox(height: 20),
+              Container(
+                width: 400,
+                height: 240,
                 decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: [Color(0xFFFFA726), Color(0xFFFFD54F)],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        CircleAvatar(
-                          radius: 65,
-                          backgroundColor: Colors.white,
-                          child: CircleAvatar(
-                            backgroundImage: NetworkImage(user.photoURL ?? ''),
-                            radius: 60,
-                            backgroundColor: Colors.grey[200],
-                          ),
-                        ),
-                        Positioned(
-                          bottom: 0,
-                          right: 0,
-                          child: Container(
-                            padding: const EdgeInsets.all(6),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              shape: BoxShape.circle,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black26,
-                                  blurRadius: 5,
-                                  offset: const Offset(0, 2),
-                                ),
-                              ],
-                            ),
-                            child: const Icon(Icons.camera_alt, size: 20, color: Colors.orange),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                    MyText(hintText:    user.displayName ?? 'No Name', fontSize: 24, colors: white,fontWeight: FontWeight.bold,shadows: [Shadow(color: Colors.black26, blurRadius: 4, offset: Offset(1, 2),),],),
-                    const SizedBox(height: 5),
-                    MyText(hintText: user.email ?? 'No Email', fontSize: 16, colors: white,fontWeight: FontWeight.w500,),
-                    const SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ElevatedButton.icon(
-                          onPressed: () {
-
-                          },
-                          icon: const Icon(Icons.edit, size: 18,color: white,),
-                          label: const MyText(hintText: 'Edit Profile',fontSize: 15,colors: white,),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFFFFA726),
-                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        ElevatedButton.icon(
-                          onPressed: () => authController.logout(),
-                          icon: const Icon(Icons.logout, size: 18,color: white,),
-                          label: const MyText(hintText: 'Logout',fontSize: 15,colors: white,),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFFF57C00),
-                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                        ),
-                      ],
+                  color: background,
+                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.white.withOpacity(0.5),
+                      blurRadius: 10.0,
+                      offset: Offset(0, 4),
                     ),
                   ],
                 ),
+                child: Padding(
+                  padding: const EdgeInsets.all(30.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          CircleAvatar(
+                            radius: 50,
+                            backgroundColor: Colors.white,
+                            child: CircleAvatar(
+                              backgroundImage: NetworkImage(user.photoURL ?? ''),
+                              radius: 45,
+                              backgroundColor: Colors.grey[200],
+                            ),
+                          ),
+                          SizedBox(width: 30),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  user.displayName ?? 'No Name',
+                                  style: AppTheme.textTheme.labelLarge,
+                                ),
+                                SizedBox(height: 4),
+                                Text(
+                                  user.email ?? 'No Email',
+                                  style: AppTheme.textTheme.labelSmall,
+                                ),
+                                SizedBox(height: 4),
+                                Text(
+                                  'Bergabung sejak 2017',
+                                  style: AppTheme.textTheme.labelSmall,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      Spacer(),
+                      Center(
+                        child: MyButton(
+                          padding: 14,
+                          foregroundColor: white,
+                          fontSize: 16,
+                          textButton: 'Keluar Akun',
+                          height: 20,
+                          textButtonColor: white,
+                          onPressed: () => authController.logout(),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            );
-          } else {
-            return const Center(
-              child: MyText(
-                hintText: 'No user logged in',fontSize: 20,colors: Colors.orange,
-              ),
-            );
-          }
-        }),
-      ),
+            ],
+          );
+        } else {
+          return const Center(
+            child: MyText(
+              text: 'No user logged in',
+              fontSize: 20,
+              colors: Colors.orange,
+            ),
+          );
+        }
+      }),
     );
   }
 }

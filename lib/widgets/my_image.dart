@@ -9,14 +9,14 @@ class MyImage extends StatelessWidget {
   final BoxFit? fit;
 
   const MyImage({
-    Key? key,
+    super.key,
     required this.imageName,
     this.margin,
     required this.width,
     required this.height,
     this.borderRadius,
     this.fit,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

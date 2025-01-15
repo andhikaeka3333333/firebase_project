@@ -15,11 +15,11 @@ class TodoListPage extends StatelessWidget {
     final TextEditingController priceController = TextEditingController();
 
     return Scaffold(
-      backgroundColor: Color(0xffb5cfec),
+      backgroundColor: const Color(0xffb5cfec),
       appBar: AppBar(
-        backgroundColor: Color(0xff4da1a9),
+        backgroundColor: const Color(0xff4da1a9),
         title: const MyText(
-          hintText: "Expense List 💰",
+          text: "Expense List 💰",
           fontSize: 20,
           colors: Colors.white,
           fontWeight: FontWeight.bold,
@@ -46,13 +46,13 @@ class TodoListPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(12),
                           ),
                           title: MyText(
-                            hintText: todo['title'],
+                            text: todo['title'],
                             fontSize: 16,
                             colors: Colors.black,
                             fontWeight: FontWeight.w500,
                           ),
                           subtitle: MyText(
-                            hintText: "Rp " + todo['price'].toString(),
+                            text: "Rp ${todo['price']}",
                             fontSize: 16,
                             colors: Colors.black,
                             fontWeight: FontWeight.w500,
@@ -75,19 +75,19 @@ class TodoListPage extends StatelessWidget {
                                           text: todo['price'].toString());
 
                                   Get.defaultDialog(
-                                    buttonColor: Color(0xff79d7be),
-                                    backgroundColor: Color(0xff4da1a9),
+                                    buttonColor: const Color(0xff79d7be),
+                                    backgroundColor: const Color(0xff4da1a9),
                                     cancelTextColor: Colors.white,
                                     confirmTextColor: Colors.white,
-                                    titleStyle: TextStyle(color: Colors.white),
+                                    titleStyle: const TextStyle(color: Colors.white),
                                     title: "Edit Expense",
                                     content: Column(
                                       children: [
                                         TextFormField(
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               color: Color(0xfff6f4f0)),
                                           controller: editTitleController,
-                                          decoration: InputDecoration(
+                                          decoration: const InputDecoration(
                                             enabledBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
                                                   color: Color(0xfff6f4f0)),
@@ -101,14 +101,14 @@ class TodoListPage extends StatelessWidget {
                                                 color: Color(0xfff6f4f0)),
                                             border: OutlineInputBorder(),
                                           ),
-                                          cursorColor: Color(0xfff6f4f0),
+                                          cursorColor: const Color(0xfff6f4f0),
                                         ),
-                                        SizedBox(height: 20),
+                                        const SizedBox(height: 20),
                                         TextFormField(
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               color: Color(0xfff6f4f0)),
                                           controller: editPriceController,
-                                          decoration: InputDecoration(
+                                          decoration: const InputDecoration(
                                             enabledBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
                                                   color: Color(0xfff6f4f0)),
@@ -122,7 +122,7 @@ class TodoListPage extends StatelessWidget {
                                                 color: Color(0xfff6f4f0)),
                                             border: OutlineInputBorder(),
                                           ),
-                                          cursorColor: Color(0xfff6f4f0),
+                                          cursorColor: const Color(0xfff6f4f0),
                                         ),
                                       ],
                                     ),
@@ -153,8 +153,8 @@ class TodoListPage extends StatelessWidget {
                                         "Are you sure you want to delete '${todo['title']}'?",
                                     backgroundColor: Colors.white,
                                     titleStyle:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                    middleTextStyle: TextStyle(fontSize: 16),
+                                        const TextStyle(fontWeight: FontWeight.bold),
+                                    middleTextStyle: const TextStyle(fontSize: 16),
                                     textCancel: "No",
                                     textConfirm: "Yes",
                                     cancelTextColor: Colors.black,
@@ -178,14 +178,14 @@ class TodoListPage extends StatelessWidget {
           ),
           Container(
             padding: const EdgeInsets.all(16.0),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Color(0xff4da1a9),
               borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(16)),
+                  BorderRadius.vertical(top: Radius.circular(16)),
               boxShadow: [
                 BoxShadow(
                   color: Colors.black26,
-                  offset: const Offset(0, -2),
+                  offset: Offset(0, -2),
                   blurRadius: 6,
                 )
               ],
@@ -194,9 +194,9 @@ class TodoListPage extends StatelessWidget {
               children: [
                 Expanded(
                   child: TextFormField(
-                    style: TextStyle(color: Color(0xfff6f4f0)),
+                    style: const TextStyle(color: Color(0xfff6f4f0)),
                     controller: titleController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Color(0xfff6f4f0)),
                       ),
@@ -207,17 +207,17 @@ class TodoListPage extends StatelessWidget {
                       labelStyle: TextStyle(color: Color(0xfff6f4f0)),
                       border: OutlineInputBorder(),
                     ),
-                    cursorColor: Color(0xfff6f4f0),
+                    cursorColor: const Color(0xfff6f4f0),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 Expanded(
                   child: TextFormField(
-                    style: TextStyle(color: Color(0xfff6f4f0)),
+                    style: const TextStyle(color: Color(0xfff6f4f0)),
                     controller: priceController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Color(0xfff6f4f0)),
                       ),
@@ -228,14 +228,14 @@ class TodoListPage extends StatelessWidget {
                       labelStyle: TextStyle(color: Color(0xfff6f4f0)),
                       border: OutlineInputBorder(),
                     ),
-                    cursorColor: Color(0xfff6f4f0),
+                    cursorColor: const Color(0xfff6f4f0),
                   ),
                 ),
                 const SizedBox(width: 8),
                 MyButton(
-                  backgroundColor: Color(0xff79d7be),
+                  backgroundColor: const Color(0xff79d7be),
                   padding: 10,
-                  foregroundColor: Color(0xff79d7be),
+                  foregroundColor: const Color(0xff79d7be),
                   fontSize: 16,
                   textButton: "Add",
                   textButtonColor: Colors.white,
