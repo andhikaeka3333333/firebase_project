@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 // Example: AppTheme.textTheme.titleLarge
 
 class AppTheme {
-  static const Color primaryColor = Color(0xFF6BC1FF);
+  static const Color primaryColor = Color(0xFF2B90D7);
   static const Color primaryColorLight = Color(0xFF4EACF0);
   static const Color primaryColorLighter = Color(0xFFC5F1FF);
   static const Color primaryColorDark = Color(0xFF2275B0);
@@ -37,11 +37,13 @@ class AppTheme {
   static const Color white90 = Color(0xFFEEEEEE);
   static const Color white60 = Color(0xFFAAAAAA);
   static const Color white30 = Color(0xFF556072);
+  static const Color white10 = Color(0xFF1E242C);
 
   static const Color textPrimaryColor = AppTheme.white100;
   static const Color textSecondaryColor = AppTheme.white90;
   static const Color hintColor = AppTheme.white60;
   static const Color cursorColor = AppTheme.primaryColor;
+
 
   static CustomTextTheme textTheme = CustomTextTheme();
 
@@ -98,7 +100,7 @@ class CustomTextTheme {
     fontFamily: 'Outfit',
     color: AppTheme.textSecondaryColor,
     fontSize: 20,
-    fontWeight: FontWeight.w300,
+    fontWeight: FontWeight.w500,
   );
 
   TextStyle bodyMedium = const TextStyle(
@@ -118,7 +120,7 @@ class CustomTextTheme {
   TextStyle labelLarge = const TextStyle(
     fontFamily: 'Outfit',
     color: AppTheme.textSecondaryColor,
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: FontWeight.w600,
   );
 

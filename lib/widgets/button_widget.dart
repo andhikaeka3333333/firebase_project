@@ -9,21 +9,21 @@ class ButtonWidget extends StatelessWidget {
   final String text;
   final ButtonVariant variant;
   final VoidCallback onPressed;
-  final bool? loading;
+  bool? loading;
 
-  final Color? backgroundColor;
-  final Color? foregroundColor;
-  final Widget? prefixIcon;
-  final Widget? suffixIcon;
-  final double? borderWidth;
-  final Color? borderColor;
-  final double? borderRadius;
-  final FontWeight? fontWeight;
-  final EdgeInsetsGeometry? padding;
-  final double? width;
-  final TextStyle? textStyle;
+  Color? backgroundColor;
+  Color? foregroundColor;
+  Widget? prefixIcon;
+  Widget? suffixIcon;
+  double? borderWidth;
+  Color? borderColor;
+  double? borderRadius;
+  FontWeight? fontWeight;
+  EdgeInsetsGeometry? padding;
+  double? width;
+  TextStyle? textStyle;
 
-  const ButtonWidget(this.text,
+  ButtonWidget(this.text,
       {required this.variant,
       required this.onPressed,
       this.loading,
@@ -117,16 +117,16 @@ class ButtonWidget extends StatelessWidget {
 class CustomButtonWidget extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
-  final bool? loading;
+  bool? loading = false;
 
-  Color? backgroundColor;
-  Color? foregroundColor;
+  Color? backgroundColor = AppTheme.primaryColor;
+  Color? foregroundColor = AppTheme.textPrimaryColor;
   Widget? prefixIcon;
   Widget? suffixIcon;
   double? borderWidth;
   Color? borderColor;
-  double? borderRadius; // fully rounded
-  FontWeight? fontWeight;
+  double? borderRadius = 16.0; // fully rounded
+  FontWeight? fontWeight = FontWeight.w500;
   EdgeInsetsGeometry? padding;
   double? width;
   TextStyle? textStyle;
@@ -178,7 +178,7 @@ class CustomButtonWidget extends StatelessWidget {
                   if (prefixIcon != null) const SizedBox(width: 12),
                   Text(
                     text,
-                    style: textStyle ?? AppTheme.textTheme.bodyMedium.copyWith(
+                    style: textStyle ?? AppTheme.textTheme.bodyMedium!.copyWith(
                         color: foregroundColor ?? AppTheme.textPrimaryColor,
                         fontWeight: fontWeight ?? FontWeight.w500),
                   ),

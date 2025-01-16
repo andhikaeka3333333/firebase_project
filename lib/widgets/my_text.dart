@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class MyText extends StatelessWidget {
-  final String hintText;
+  final String text;
   final double fontSize;
   final FontWeight? fontWeight;
   final EdgeInsetsGeometry? padding;
@@ -13,7 +13,7 @@ class MyText extends StatelessWidget {
 
   const MyText({
     super.key,
-    required this.hintText,
+    required this.text,
     required this.fontSize,
     this.fontWeight,
     this.padding,
@@ -29,7 +29,7 @@ class MyText extends StatelessWidget {
     return Container(
       padding: padding,
       child: Text(
-        hintText,
+        text,
         style: TextStyle(
           fontFamily: fontFamily,
           color: colors,
