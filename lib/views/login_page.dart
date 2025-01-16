@@ -1,3 +1,5 @@
+import 'package:firebase_project/utils/theme.dart';
+import 'package:firebase_project/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -5,8 +7,6 @@ import '../controller/auth_controller.dart';
 import '../utils/theme.dart';
 import '../widgets/button_widget.dart';
 import '../widgets/my_color.dart';
-import '../widgets/my_image.dart';
-import '../widgets/my_text.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -14,7 +14,6 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AuthController authController = Get.find();
-
     return Scaffold(
       backgroundColor: AppTheme.backgroundColor,
       body: Column(
@@ -138,4 +137,3 @@ class LoginPage extends StatelessWidget {
             ));
   }
 }
-
