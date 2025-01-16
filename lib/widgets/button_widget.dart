@@ -21,6 +21,7 @@ class ButtonWidget extends StatelessWidget {
   FontWeight? fontWeight;
   EdgeInsetsGeometry? padding;
   double? width;
+  TextStyle? textStyle;
 
   ButtonWidget(this.text,
       {required this.variant,
@@ -36,6 +37,7 @@ class ButtonWidget extends StatelessWidget {
       this.fontWeight,
       this.padding,
       this.width,
+      this.textStyle,
       super.key});
 
   @override
@@ -47,6 +49,7 @@ class ButtonWidget extends StatelessWidget {
     if (borderColor != null) data.borderColor = borderColor;
     if (borderRadius != null) data.borderRadius = borderRadius;
     if (fontWeight != null) data.fontWeight = fontWeight;
+    if (textStyle != null) data.textStyle = textStyle;
 
     return CustomButtonWidget(text,
         onPressed: onPressed,
@@ -60,7 +63,8 @@ class ButtonWidget extends StatelessWidget {
         fontWeight: data.fontWeight,
         padding: padding,
         width: width,
-        loading: loading);
+        loading: loading,
+        textStyle: data.textStyle);
   }
 
   variantCheck() {
@@ -94,7 +98,7 @@ class ButtonWidget extends StatelessWidget {
             onPressed: onPressed,
             backgroundColor: Colors.transparent,
             foregroundColor: AppTheme.white100,
-            borderWidth: 2.0,
+            borderWidth: 1.0,
             borderColor: AppTheme.white60,
             borderRadius: 16.0,
             fontWeight: FontWeight.w500);
@@ -125,6 +129,7 @@ class CustomButtonWidget extends StatelessWidget {
   FontWeight? fontWeight = FontWeight.w500;
   EdgeInsetsGeometry? padding;
   double? width;
+  TextStyle? textStyle;
 
   CustomButtonWidget(this.text,
       {required this.onPressed,
@@ -139,6 +144,7 @@ class CustomButtonWidget extends StatelessWidget {
       this.fontWeight,
       this.padding,
       this.width,
+      this.textStyle,
       super.key});
 
   @override
@@ -148,8 +154,10 @@ class CustomButtonWidget extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: backgroundColor ?? AppTheme.primaryColor,
           foregroundColor: foregroundColor ?? AppTheme.textPrimaryColor,
-          disabledBackgroundColor: backgroundColor ?? AppTheme.primaryColor,
-          disabledForegroundColor: foregroundColor ?? AppTheme.textPrimaryColor,
+          disabledBackgroundColor: (backgroundColor ?? AppTheme.primaryColor)
+              .withOpacity(0.7),
+          disabledForegroundColor: (foregroundColor ?? AppTheme.textPrimaryColor)
+              .withOpacity(0.7),
           side: BorderSide(
               color: borderColor ?? backgroundColor!,
               width: borderWidth ?? 0.0),
@@ -159,7 +167,10 @@ class CustomButtonWidget extends StatelessWidget {
           padding: padding ?? const EdgeInsets.symmetric(vertical: 16.0),
         ),
         child: loading == true
-            ? const SpinnerWidget(size: SpinnerSize.small)
+            ? const Padding(
+              padding: EdgeInsets.symmetric(vertical: 2.0),
+              child: SpinnerWidget(size: SpinnerSize.small),
+            )
             : Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -167,7 +178,7 @@ class CustomButtonWidget extends StatelessWidget {
                   if (prefixIcon != null) const SizedBox(width: 12),
                   Text(
                     text,
-                    style: AppTheme.textTheme.bodyMedium!.copyWith(
+                    style: textStyle ?? AppTheme.textTheme.bodyMedium!.copyWith(
                         color: foregroundColor ?? AppTheme.textPrimaryColor,
                         fontWeight: fontWeight ?? FontWeight.w500),
                   ),

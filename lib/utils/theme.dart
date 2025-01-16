@@ -120,7 +120,7 @@ class CustomTextTheme {
   TextStyle labelLarge = const TextStyle(
     fontFamily: 'Outfit',
     color: AppTheme.textSecondaryColor,
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: FontWeight.w600,
   );
 

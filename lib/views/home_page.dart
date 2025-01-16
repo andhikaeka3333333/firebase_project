@@ -1,3 +1,5 @@
+import 'package:firebase_project/routes/myapp_route.dart';
+import 'package:firebase_project/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controller/auth_controller.dart';
@@ -33,94 +35,101 @@ class HomePage extends StatelessWidget {
                 'assets/images/background.png',
                 width: Get.width,
               ),
-              Column(
-                children: [
-                  SizedBox(height: 20),
-                  Container(
-                    width: 400,
-                    height: 240,
-                    decoration: BoxDecoration(
-                      color: background,
-                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.white.withOpacity(0.5),
-                          blurRadius: 10.0,
-                          offset: Offset(0, 4),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  children: [
+                    const SizedBox(height: 20),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: background,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(20.0)),
+                        border: Border.all(
+                          color: AppTheme.white10,
+                          width: 1,
                         ),
-                      ],
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(30.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              CircleAvatar(
-                                radius: 50,
-                                backgroundColor: Colors.white,
-                                child: CircleAvatar(
-                                  backgroundImage:
-                                      NetworkImage(user.photoURL ?? ''),
-                                  radius: 45,
-                                  backgroundColor: Colors.grey[200],
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(30.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                CircleAvatar(
+                                  radius: 44,
+                                  backgroundColor: AppTheme.white90,
+                                  child: CircleAvatar(
+                                    backgroundImage:
+                                        NetworkImage(user.photoURL ?? ''),
+                                    radius: 40,
+                                    backgroundColor: AppTheme.white60,
+                                  ),
                                 ),
-                              ),
-                              SizedBox(width: 30),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      user.displayName ?? 'No Name',
-                                      style: AppTheme.textTheme.labelLarge,
-                                    ),
-                                    SizedBox(height: 4),
-                                    Text(
-                                      user.email ?? 'No Email',
-                                      style: AppTheme.textTheme.labelSmall,
-                                    ),
-                                    SizedBox(height: 4),
-                                    Text(
-                                      'Bergabung sejak 2017',
-                                      style: AppTheme.textTheme.labelSmall,
-                                    ),
-                                  ],
+                                const SizedBox(width: 24),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        user.displayName ?? 'No Name',
+                                        style: AppTheme.textTheme.labelLarge
+                                            .copyWith(height: 1.2),
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Text(
+                                        user.email ?? 'No Email',
+                                        style: AppTheme.textTheme.labelSmall,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      Text(
+                                        'Bergabung Jan 2025',
+                                        style: AppTheme.textTheme.labelSmall,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          Spacer(),
-                          Center(
-                            child: MyButton(
-                              padding: 14,
-                              foregroundColor: white,
-                              fontSize: 16,
-                              textButton: 'Keluar Akun',
-                              height: 20,
-                              textButtonColor: white,
-                              onPressed: () => authController.logout(),
+                              ],
                             ),
-                          ),
-                        ],
+                            const SizedBox(height: 32),
+                            ButtonWidget('Edit Profil',
+                                onPressed: () {},
+                                prefixIcon: const Icon(Icons.edit, size: 20.0),
+                                variant: ButtonVariant.outline,
+                                textStyle: AppTheme.textTheme.bodyMedium
+                                    .copyWith(
+                                        color: AppTheme.textPrimaryColor,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 16, height: 1.3)
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 32),
+                    ButtonWidget('Logout',
+                        onPressed: () async {
+                          await authController.logout();
+                        },
+                        variant: ButtonVariant.danger,
+                        prefixIcon: const Icon(Icons.logout, size: 20.0),
+                    ),
+                  ],
+                ),
               )
             ],
           );
-        } else {
-          return const Center(
-            child: MyText(
-              text: 'No user logged in',
-              fontSize: 20,
-              colors: Colors.orange,
-            ),
-          );
         }
+
+        // if null, then user should log in back
+        Get.offNamed(MyappRoute.login);
+        return Container();
       }),
     );
   }

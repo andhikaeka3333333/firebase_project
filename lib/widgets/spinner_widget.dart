@@ -27,7 +27,7 @@ class SpinnerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LoopAnimationBuilder(
-      duration: const Duration(milliseconds: 1000),
+      duration: const Duration(milliseconds: 800),
       tween: Tween(begin: 0.0, end: 2 * pi),
       builder: (context, value, _) {
         return Transform.rotate(
