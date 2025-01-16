@@ -5,6 +5,7 @@ import 'package:firebase_project/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'controller/auth_controller.dart';
 import 'firebase_options.dart';
 
 
@@ -21,9 +22,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AuthController authController = Get.put(AuthController());
+
     return GetMaterialApp(
       title: 'Menyala Abangku',
-      initialRoute: MyappRoute.login,
+      initialRoute: authController.user.value != null ? MyappRoute.navbar : MyappRoute.login,
       theme: AppTheme.getThemeData(),
       getPages: AppPages.pages,
     );
