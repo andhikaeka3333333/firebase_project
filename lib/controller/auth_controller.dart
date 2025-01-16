@@ -9,6 +9,7 @@ class AuthController extends GetxController {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   var user = Rx<User?>(null);
+  Rx<bool> isLoading = Rx<bool>(false);
 
   @override
   void onInit() {
@@ -18,6 +19,7 @@ class AuthController extends GetxController {
 
   Future<void> loginWithGoogle() async {
     try {
+      isLoading.value = true;
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       if (googleUser != null) {
         final GoogleSignInAuthentication googleAuth =
@@ -35,9 +37,11 @@ class AuthController extends GetxController {
     } catch (e) {
       Get.snackbar('Error', e.toString());
     }
+    isLoading.value = false;
   }
 
   Future<void> logout() async {
+    isLoading.value = true;
     try {
       await _googleSignIn.signOut();
       await _auth.signOut();
@@ -46,5 +50,6 @@ class AuthController extends GetxController {
     } catch (e) {
       Get.snackbar('Error', e.toString());
     }
+    isLoading.value = false;
   }
 }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../controller/todo_controller.dart';
+import '../utils/theme.dart';
 
 class TodoListPage extends StatelessWidget {
   const TodoListPage({super.key});
@@ -15,9 +16,9 @@ class TodoListPage extends StatelessWidget {
     final TextEditingController priceController = TextEditingController();
 
     return Scaffold(
-      backgroundColor: const Color(0xffb5cfec),
+      backgroundColor: AppTheme.backgroundColor,
       appBar: AppBar(
-        backgroundColor: const Color(0xff4da1a9),
+        backgroundColor: AppTheme.backgroundSecondaryColor,
         title: const MyText(
           text: "Expense List 💰",
           fontSize: 20,
