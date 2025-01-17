@@ -178,7 +178,7 @@ class CustomButtonWidget extends StatelessWidget {
                   if (prefixIcon != null) const SizedBox(width: 12),
                   Text(
                     text,
-                    style: textStyle ?? AppTheme.textTheme.bodyMedium!.copyWith(
+                    style: textStyle ?? AppTheme.textTheme.bodyMedium.copyWith(
                         color: foregroundColor ?? AppTheme.textPrimaryColor,
                         fontWeight: fontWeight ?? FontWeight.w500),
                   ),

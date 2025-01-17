@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controller/auth_controller.dart';
 import '../utils/theme.dart';
-import '../widgets/my_button.dart';
 import '../widgets/my_color.dart';
 import '../widgets/my_text.dart';
 
@@ -42,7 +41,7 @@ class HomePage extends StatelessWidget {
                     const SizedBox(height: 20),
                     Container(
                       decoration: BoxDecoration(
-                        color: background,
+                        color: AppTheme.backgroundSecondaryColor,
                         borderRadius:
                             const BorderRadius.all(Radius.circular(20.0)),
                         border: Border.all(

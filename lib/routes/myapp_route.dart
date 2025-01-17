@@ -38,7 +38,7 @@ class AppPages {
     ),
     GetPage(
       name: '/todo',
-      page: () => const TodoListPage(),
+      page: () => TodoListPage(),
       binding: TodoBinding(),
     ),
     GetPage(

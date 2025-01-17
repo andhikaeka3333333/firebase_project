@@ -35,7 +35,8 @@ class AuthController extends GetxController {
         Get.offNamed(MyappRoute.navbar);
       }
     } catch (e) {
-      Get.snackbar('Error', e.toString());
+      isLoading.value = false;
+      rethrow;
     }
     isLoading.value = false;
   }

@@ -1,10 +1,13 @@
-import 'package:firebase_project/utils/theme.dart';
-import 'package:firebase_project/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import '../controller/auth_controller.dart';
-import '../widgets/my_button.dart';
+import '../utils/modals.dart';
+import '../utils/theme.dart';
+import '../widgets/button_widget.dart';
 import '../widgets/my_color.dart';
+import '../widgets/my_image.dart';
+import '../widgets/my_text.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -13,7 +16,7 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final AuthController authController = Get.find();
     return Scaffold(
-      backgroundColor: primaryBackground,
+      backgroundColor: AppTheme.backgroundColor,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -67,11 +70,21 @@ class LoginPage extends StatelessWidget {
                     prefixIcon:
                         Image.asset('assets/icons/google.png', width: 20),
                     onPressed: () async {
-                  await authController.loginWithGoogle();
-                })),
+                      await login(context, authController);
+                    }))
           )
         ],
       ),
     );
+  }
+
+  Future login(BuildContext context, AuthController authController) async {
+    try {
+      await authController.loginWithGoogle();
+    } on Exception catch (e) {
+      await ModalUtils.loginError(context, e, () async {
+        await login(context, authController);
+      });
+    }
   }
 }
