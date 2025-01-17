@@ -1,12 +1,10 @@
+import 'package:firebase_project/utils/modals.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import '../controller/auth_controller.dart';
 import '../utils/theme.dart';
 import '../widgets/button_widget.dart';
-import '../widgets/my_color.dart';
-import '../widgets/my_image.dart';
-import '../widgets/my_text.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -82,60 +80,10 @@ class LoginPage extends StatelessWidget {
     try {
       await authController.loginWithGoogle();
     } on Exception catch (e) {
-      await showErrorModal(context, e, () async {
+      await ModalUtils.loginError(context, e, () async {
         await login(context, authController);
       });
     }
-  }
-
-  Future showErrorModal(BuildContext context, Exception e, Function onRetry) {
-    return showMaterialModalBottomSheet(
-        context: context,
-        backgroundColor: AppTheme.backgroundSecondaryColor,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-        ),
-        builder: (context) => SingleChildScrollView(
-              controller: ModalScrollController.of(context),
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  top: 20.0,
-                  left: 20.0,
-                  right: 20.0,
-                  bottom: 32.0,
-                ),
-                child: Column(
-                  children: [
-                    Image.asset('assets/icons/drag.png', height: 8),
-                    const SizedBox(height: 20),
-                    Text(
-                      'Oops.. Ada masalah!',
-                      style: AppTheme.textTheme.titleSmall,
-                    ),
-                    const SizedBox(height: 16),
-                    Text(
-                      'Terjadi kesalahan ketika mencoba membuatmu login. Silahkan coba lagi.',
-                      style:
-                          AppTheme.textTheme.labelMedium.copyWith(fontSize: 16),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 16),
-                    Text(
-                      e.toString(),
-                      style: AppTheme.textTheme.labelSmall
-                          .copyWith(color: AppTheme.white60),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 20),
-                    ButtonWidget('Coba lagi', variant: ButtonVariant.primary,
-                        onPressed: () {
-                      onRetry();
-                      Navigator.pop(context);
-                    }),
-                  ],
-                ),
-              ),
-            ));
   }
 }
 

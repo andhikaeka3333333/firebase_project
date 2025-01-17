@@ -1,6 +1,5 @@
 import 'package:firebase_project/bindings/navbar_binding.dart';
 import 'package:firebase_project/bindings/todo_binding.dart';
-import 'package:firebase_project/controller/navbar_controller.dart';
 import 'package:firebase_project/navbar/navbar.dart';
 import 'package:firebase_project/views/notification_page.dart';
 import 'package:firebase_project/views/todo_list_page.dart';
@@ -39,7 +38,7 @@ class AppPages {
     ),
     GetPage(
       name: '/todo',
-      page: () => const TodoListPage(),
+      page: () => TodoListPage(),
       binding: TodoBinding(),
     ),
     GetPage(

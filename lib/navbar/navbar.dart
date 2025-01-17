@@ -17,7 +17,7 @@ class Navbar extends StatelessWidget {
       return Scaffold(
         body: IndexedStack(
           index: navBarController.tabIndex,
-          children: const [TodoListPage(), HomePage()],
+          children: [TodoListPage(), const HomePage()],
         ),
         bottomNavigationBar: Container(
           decoration: const BoxDecoration(

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controller/auth_controller.dart';
 import '../utils/theme.dart';
-import '../widgets/my_button.dart';
 import '../widgets/my_color.dart';
 import '../widgets/my_text.dart';
 

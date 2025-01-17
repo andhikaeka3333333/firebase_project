@@ -5,7 +5,11 @@ class TodoController extends GetxController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final RxList<Map<String, dynamic>> expenses = <Map<String, dynamic>>[].obs;
 
+  Rx<String?> titleError = Rx<String?>(null);
+  Rx<String?> priceError = Rx<String?>(null);
   Rx<bool> isLoadingAdd = Rx<bool>(false);
+  Rx<bool> isLoadingUpdate = Rx<bool>(false);
+  Rx<bool> isLoadingDelete = Rx<bool>(false);
 
   @override
   void onInit() {
@@ -37,14 +41,37 @@ class TodoController extends GetxController {
   }
 
   Future<void> deleteExpense(String id) async {
-    await _firestore.collection('expenses').doc(id).delete();
+    isLoadingDelete.value = true;
+    try {
+      await _firestore
+          .collection('expenses')
+          .doc(id)
+          .delete()
+          .timeout(const Duration(seconds: 10));
+    } catch (e) {
+      isLoadingDelete.value = false;
+      rethrow;
+    }
+    isLoadingDelete.value = false;
   }
 
   Future<void> updateExpense(
       String id, String newTitle, String newPrice) async {
-    await _firestore.collection('expenses').doc(id).update({
-      'title': newTitle,
-      'price': newPrice,
-    });
+    isLoadingUpdate.value = true;
+    try {
+      await _firestore.collection('expenses').doc(id).update({
+        'title': newTitle,
+        'price': newPrice,
+      }).timeout(const Duration(seconds: 10));
+    } catch (e) {
+      isLoadingUpdate.value = false;
+      rethrow;
+    }
+    isLoadingUpdate.value = false;
+  }
+
+  void clearInputErrors() {
+    titleError.value = null;
+    priceError.value = null;
   }
 }
