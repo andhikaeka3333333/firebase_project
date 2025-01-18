@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_project/models/expense_model.dart';
 import 'package:get/get.dart';
 
@@ -21,12 +22,16 @@ class ExpenseController extends GetxController {
   }
 
   void fetchData() {
-    _firestore.collection('expenses').snapshots().listen((snapshot) {
-      expenses.value = snapshot.docs
-          .map((doc) => ExpenseModel.fromJson(doc.id, doc.data()))
-          .toList();
-      isLoadingFetch.value = false;
-    });
+    final user = FirebaseAuth.instance.currentUser;
+    _firestore.collection('expenses')
+      .where('user', isEqualTo: user?.uid)
+      .snapshots()
+      .listen((snapshot) {
+        expenses.value = snapshot.docs
+            .map((doc) => ExpenseModel.fromJson(doc.id, doc.data()))
+            .toList();
+        isLoadingFetch.value = false;
+      });
   }
 
   ExpenseModel getData(String id) {
@@ -37,8 +42,14 @@ class ExpenseController extends GetxController {
   Future<void> addExpense(String title, String price) async {
     isLoadingAdd.value = true;
     try {
+      final user = FirebaseAuth.instance.currentUser;
       await _firestore.collection('expenses')
-        .add({ 'title': title, 'price': price, 'checked': false })
+        .add({ 
+          'title': title, 
+          'price': price, 
+          'checked': false, 
+          'user': user?.uid
+        })
         .timeout(const Duration(seconds: 10));
     } catch (e) {
       isLoadingAdd.value = false;

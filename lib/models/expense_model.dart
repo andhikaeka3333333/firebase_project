@@ -3,12 +3,14 @@ class ExpenseModel {
   final String title;
   final String price;
   final bool checked;
+  final String user;
 
   ExpenseModel({
     required this.id,
     required this.title,
     required this.price,
     required this.checked,
+    required this.user,
   });
 
   factory ExpenseModel.fromJson(String id, Map<String, dynamic> json) {
@@ -17,6 +19,7 @@ class ExpenseModel {
       title: json['title'],
       price: json['price'],
       checked: json['checked'] == true,
+      user: json['user'],
     );
   }
 
@@ -25,6 +28,7 @@ class ExpenseModel {
       'title': title,
       'price': price,
       'checked': checked == true,
+      'user': user,
     };
     if (id) data['id'] = this.id;
     return data;
@@ -41,6 +45,7 @@ class ExpenseModel {
       title: title ?? this.title,
       price: price ?? this.price,
       checked: checked ?? this.checked,
+      user: user,
     );
   }
 }
