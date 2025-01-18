@@ -26,7 +26,7 @@ class TodoListPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: AppTheme.backgroundSecondaryColor,
         title: const MyText(
-          text: "Expense List 💰",
+          text: "Expense List",
           fontSize: 20,
           colors: Colors.white,
           fontWeight: FontWeight.bold,
@@ -70,179 +70,187 @@ class TodoListPage extends StatelessWidget {
             'assets/images/background.png',
             width: Get.width,
           ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Obx(() => ListView.builder(
-                    itemCount: controller.expenses.length,
-                    itemBuilder: (context, index) {
-                      final todo = controller.expenses[index];
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 16.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: AppTheme.backgroundSecondaryColor,
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(12.0)),
-                            border: Border.all(
-                              color: AppTheme.white10,
-                              width: 1,
-                            ),
-                          ),
-                          child: ListTile(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            title: Text(todo['title'],
-                                style: AppTheme.textTheme.labelMedium),
-                            subtitle: Text("Rp. ${todo['price']}",
-                                style: AppTheme.textTheme.labelSmall
-                                    .copyWith(color: AppTheme.white60)),
-                            trailing: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                IconButton(
-                                  icon: const Icon(Icons.edit,
-                                      color: AppTheme.white90),
-                                  onPressed: () {
-                                    // Buat controller baru untuk setiap dialog edit
-                                    final TextEditingController
-                                        editTitleController =
-                                        TextEditingController(
-                                            text: todo['title']);
-                                    final TextEditingController
-                                        editPriceController =
-                                        TextEditingController(
-                                            text: todo['price'].toString());
-
-                                    showCreateUpdateModal(context,
-                                        controller: controller,
-                                        titleController: editTitleController,
-                                        priceController: editPriceController,
-                                        onSubmit: (context,
-                                                controller,
-                                                titleController,
-                                                priceController) =>
-                                            updateExpense(
-                                                todo['id'],
-                                                context,
-                                                controller,
-                                                titleController,
-                                                priceController),
-                                        isUpdate: true);
-
-                                    // Get.defaultDialog(
-                                    //   buttonColor: const Color(0xff79d7be),
-                                    //   backgroundColor: const Color(0xff4da1a9),
-                                    //   cancelTextColor: Colors.white,
-                                    //   confirmTextColor: Colors.white,
-                                    //   titleStyle:
-                                    //       const TextStyle(color: Colors.white),
-                                    //   title: "Edit Expense",
-                                    //   content: Column(
-                                    //     children: [
-                                    //       TextFormField(
-                                    //         style: const TextStyle(
-                                    //             color: Color(0xfff6f4f0)),
-                                    //         controller: editTitleController,
-                                    //         decoration: const InputDecoration(
-                                    //           enabledBorder: OutlineInputBorder(
-                                    //             borderSide: BorderSide(
-                                    //                 color: Color(0xfff6f4f0)),
-                                    //           ),
-                                    //           focusedBorder: OutlineInputBorder(
-                                    //             borderSide: BorderSide(
-                                    //                 color: Color(0xfff6f4f0)),
-                                    //           ),
-                                    //           labelText: "Produk",
-                                    //           labelStyle: TextStyle(
-                                    //               color: Color(0xfff6f4f0)),
-                                    //           border: OutlineInputBorder(),
-                                    //         ),
-                                    //         cursorColor:
-                                    //             const Color(0xfff6f4f0),
-                                    //       ),
-                                    //       const SizedBox(height: 20),
-                                    //       TextFormField(
-                                    //         style: const TextStyle(
-                                    //             color: Color(0xfff6f4f0)),
-                                    //         controller: editPriceController,
-                                    //         decoration: const InputDecoration(
-                                    //           enabledBorder: OutlineInputBorder(
-                                    //             borderSide: BorderSide(
-                                    //                 color: Color(0xfff6f4f0)),
-                                    //           ),
-                                    //           focusedBorder: OutlineInputBorder(
-                                    //             borderSide: BorderSide(
-                                    //                 color: Color(0xfff6f4f0)),
-                                    //           ),
-                                    //           labelText: "Produk",
-                                    //           labelStyle: TextStyle(
-                                    //               color: Color(0xfff6f4f0)),
-                                    //           border: OutlineInputBorder(),
-                                    //         ),
-                                    //         cursorColor:
-                                    //             const Color(0xfff6f4f0),
-                                    //       ),
-                                    //     ],
-                                    //   ),
-                                    //   textCancel: "Cancel",
-                                    //   textConfirm: "Save",
-                                    //   onCancel: () {},
-                                    //   onConfirm: () {
-                                    //     if (editTitleController
-                                    //             .text.isNotEmpty &&
-                                    //         editPriceController
-                                    //             .text.isNotEmpty) {
-                                    //       controller.updateExpense(
-                                    //         todo['id'],
-                                    //         editTitleController.text,
-                                    //         editPriceController.text,
-                                    //       );
-                                    //       Get.back();
-                                    //     }
-                                    //   },
-                                    // );
-                                  },
+          Flex(
+            direction: Axis.vertical,
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Obx(() => ListView.builder(
+                        itemCount: controller.expenses.length,
+                        itemBuilder: (context, index) {
+                          final todo = controller.expenses[index];
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 16.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: AppTheme.backgroundSecondaryColor,
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(12.0)),
+                                border: Border.all(
+                                  color: AppTheme.white10,
+                                  width: 1,
                                 ),
-                                IconButton(
-                                  icon: const Icon(Icons.delete,
-                                      color: AppTheme.errorColorLight),
-                                  onPressed: () {
-                                    showDeleteModal(context,
-                                        controller: controller,
-                                        onSubmit: (context, controller) =>
-                                            deleteExpense(todo['id'], context, controller));
-                                    // Get.defaultDialog(
-                                    //   title: "Confirmation",
-                                    //   middleText:
-                                    //       "Are you sure you want to delete '${todo['title']}'?",
-                                    //   backgroundColor: Colors.white,
-                                    //   titleStyle: const TextStyle(
-                                    //       fontWeight: FontWeight.bold),
-                                    //   middleTextStyle:
-                                    //       const TextStyle(fontSize: 16),
-                                    //   textCancel: "No",
-                                    //   textConfirm: "Yes",
-                                    //   cancelTextColor: Colors.black,
-                                    //   confirmTextColor: Colors.white,
-                                    //   buttonColor: Colors.red,
-                                    //   onCancel: () {},
-                                    //   onConfirm: () {
-                                    //     controller.deleteExpense(todo['id']);
-                                    //     Get.back();
-                                    //   },
-                                    // );
-                                  },
+                              ),
+                              child: ListTile(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
                                 ),
-                              ],
+                                title: Text(todo['title'],
+                                    style: AppTheme.textTheme.labelMedium),
+                                subtitle: Text("Rp. ${todo['price']}",
+                                    style: AppTheme.textTheme.labelSmall
+                                        .copyWith(color: AppTheme.white60)),
+                                trailing: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    IconButton(
+                                      icon: const Icon(Icons.edit,
+                                          color: AppTheme.white90),
+                                      onPressed: () {
+                                        // Buat controller baru untuk setiap dialog edit
+                                        final TextEditingController
+                                            editTitleController =
+                                            TextEditingController(
+                                                text: todo['title']);
+                                        final TextEditingController
+                                            editPriceController =
+                                            TextEditingController(
+                                                text: todo['price'].toString());
+
+                                        showCreateUpdateModal(context,
+                                            controller: controller,
+                                            titleController:
+                                                editTitleController,
+                                            priceController:
+                                                editPriceController,
+                                            onSubmit: (context,
+                                                    controller,
+                                                    titleController,
+                                                    priceController) =>
+                                                updateExpense(
+                                                    todo['id'],
+                                                    context,
+                                                    controller,
+                                                    titleController,
+                                                    priceController),
+                                            isUpdate: true);
+
+                                        // Get.defaultDialog(
+                                        //   buttonColor: const Color(0xff79d7be),
+                                        //   backgroundColor: const Color(0xff4da1a9),
+                                        //   cancelTextColor: Colors.white,
+                                        //   confirmTextColor: Colors.white,
+                                        //   titleStyle:
+                                        //       const TextStyle(color: Colors.white),
+                                        //   title: "Edit Expense",
+                                        //   content: Column(
+                                        //     children: [
+                                        //       TextFormField(
+                                        //         style: const TextStyle(
+                                        //             color: Color(0xfff6f4f0)),
+                                        //         controller: editTitleController,
+                                        //         decoration: const InputDecoration(
+                                        //           enabledBorder: OutlineInputBorder(
+                                        //             borderSide: BorderSide(
+                                        //                 color: Color(0xfff6f4f0)),
+                                        //           ),
+                                        //           focusedBorder: OutlineInputBorder(
+                                        //             borderSide: BorderSide(
+                                        //                 color: Color(0xfff6f4f0)),
+                                        //           ),
+                                        //           labelText: "Produk",
+                                        //           labelStyle: TextStyle(
+                                        //               color: Color(0xfff6f4f0)),
+                                        //           border: OutlineInputBorder(),
+                                        //         ),
+                                        //         cursorColor:
+                                        //             const Color(0xfff6f4f0),
+                                        //       ),
+                                        //       const SizedBox(height: 20),
+                                        //       TextFormField(
+                                        //         style: const TextStyle(
+                                        //             color: Color(0xfff6f4f0)),
+                                        //         controller: editPriceController,
+                                        //         decoration: const InputDecoration(
+                                        //           enabledBorder: OutlineInputBorder(
+                                        //             borderSide: BorderSide(
+                                        //                 color: Color(0xfff6f4f0)),
+                                        //           ),
+                                        //           focusedBorder: OutlineInputBorder(
+                                        //             borderSide: BorderSide(
+                                        //                 color: Color(0xfff6f4f0)),
+                                        //           ),
+                                        //           labelText: "Produk",
+                                        //           labelStyle: TextStyle(
+                                        //               color: Color(0xfff6f4f0)),
+                                        //           border: OutlineInputBorder(),
+                                        //         ),
+                                        //         cursorColor:
+                                        //             const Color(0xfff6f4f0),
+                                        //       ),
+                                        //     ],
+                                        //   ),
+                                        //   textCancel: "Cancel",
+                                        //   textConfirm: "Save",
+                                        //   onCancel: () {},
+                                        //   onConfirm: () {
+                                        //     if (editTitleController
+                                        //             .text.isNotEmpty &&
+                                        //         editPriceController
+                                        //             .text.isNotEmpty) {
+                                        //       controller.updateExpense(
+                                        //         todo['id'],
+                                        //         editTitleController.text,
+                                        //         editPriceController.text,
+                                        //       );
+                                        //       Get.back();
+                                        //     }
+                                        //   },
+                                        // );
+                                      },
+                                    ),
+                                    IconButton(
+                                      icon: const Icon(Icons.delete,
+                                          color: AppTheme.errorColorLight),
+                                      onPressed: () {
+                                        showDeleteModal(context,
+                                            controller: controller,
+                                            onSubmit: (context, controller) =>
+                                                deleteExpense(todo['id'],
+                                                    context, controller));
+                                        // Get.defaultDialog(
+                                        //   title: "Confirmation",
+                                        //   middleText:
+                                        //       "Are you sure you want to delete '${todo['title']}'?",
+                                        //   backgroundColor: Colors.white,
+                                        //   titleStyle: const TextStyle(
+                                        //       fontWeight: FontWeight.bold),
+                                        //   middleTextStyle:
+                                        //       const TextStyle(fontSize: 16),
+                                        //   textCancel: "No",
+                                        //   textConfirm: "Yes",
+                                        //   cancelTextColor: Colors.black,
+                                        //   confirmTextColor: Colors.white,
+                                        //   buttonColor: Colors.red,
+                                        //   onCancel: () {},
+                                        //   onConfirm: () {
+                                        //     controller.deleteExpense(todo['id']);
+                                        //     Get.back();
+                                        //   },
+                                        // );
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                      );
-                    },
-                  )),
-            ),
+                          );
+                        },
+                      )),
+                ),
+              ),
+            ],
           )
         ],
       ),
@@ -283,7 +291,7 @@ class TodoListPage extends StatelessWidget {
     titleController.clear();
     priceController.clear();
     if (modalOpened) {
-      Navigator.pop(context);
+      Get.back();
     }
   }
 
@@ -323,7 +331,7 @@ class TodoListPage extends StatelessWidget {
     titleController.clear();
     priceController.clear();
     if (modalOpened) {
-      Navigator.pop(context);
+      Get.back();
     }
   }
 
@@ -339,7 +347,7 @@ class TodoListPage extends StatelessWidget {
     }
 
     if (modalOpened) {
-      Navigator.pop(context);
+      Get.back();
     }
   }
 
@@ -411,8 +419,7 @@ class TodoListPage extends StatelessWidget {
   }
 
   void showDeleteModal(BuildContext context,
-      {required TodoController controller,
-      required dynamic onSubmit}) {
+      {required TodoController controller, required dynamic onSubmit}) {
     if (modalOpened) return;
     modalOpened = true;
     showMaterialModalBottomSheet(
@@ -441,17 +448,17 @@ class TodoListPage extends StatelessWidget {
                     const SizedBox(height: 16),
                     Text(
                       'Catatan yang sudah terhapus tidak dapat dikembalikan!',
-                      style: AppTheme.textTheme.labelMedium.copyWith(fontSize: 16),
-                      textAlign: TextAlign.center,),
+                      style:
+                          AppTheme.textTheme.labelMedium.copyWith(fontSize: 16),
+                      textAlign: TextAlign.center,
+                    ),
                     const SizedBox(height: 32),
-                    ButtonWidget(
-                      'Tidak, kembali', 
-                      variant: ButtonVariant.outline,
-                      prefixIcon: const Icon(Icons.arrow_back, size: 20.0),
-                      onPressed: () => Navigator.pop(context)),
+                    ButtonWidget('Tidak, kembali',
+                        variant: ButtonVariant.outline,
+                        prefixIcon: const Icon(Icons.arrow_back, size: 20.0),
+                        onPressed: () => Navigator.pop(context)),
                     const SizedBox(height: 20),
-                    Obx(() => ButtonWidget(
-                        'Ya, Hapus Pengeluaran',
+                    Obx(() => ButtonWidget('Ya, Hapus Pengeluaran',
                         variant: ButtonVariant.danger,
                         prefixIcon: const Icon(Icons.delete, size: 20.0),
                         loading: controller.isLoadingDelete.value,
