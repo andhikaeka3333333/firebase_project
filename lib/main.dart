@@ -3,6 +3,7 @@ import 'package:firebase_project/controller/notif_controller.dart';
 import 'package:firebase_project/routes/myapp_route.dart';
 import 'package:firebase_project/utils/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import 'controller/auth_controller.dart';
@@ -10,9 +11,14 @@ import 'firebase_options.dart';
 
 
 void main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await NotifController().initNotifications();
+
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp
+  ]);
 
   runApp(const MyApp());
 }

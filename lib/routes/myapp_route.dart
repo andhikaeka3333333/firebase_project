@@ -1,8 +1,8 @@
 import 'package:firebase_project/bindings/navbar_binding.dart';
-import 'package:firebase_project/bindings/todo_binding.dart';
+import 'package:firebase_project/bindings/expense_binding.dart';
 import 'package:firebase_project/navbar/navbar.dart';
 import 'package:firebase_project/views/notification_page.dart';
-import 'package:firebase_project/views/todo_list_page.dart';
+import 'package:firebase_project/views/expense_list_page.dart';
 import 'package:get/get.dart';
 
 import '../bindings/auth_binding.dart';
@@ -39,7 +39,7 @@ class AppPages {
     GetPage(
       name: '/todo',
       page: () => TodoListPage(),
-      binding: TodoBinding(),
+      binding: ExpenseBinding(),
     ),
     GetPage(
       name: '/notification',

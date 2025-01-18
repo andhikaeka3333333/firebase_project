@@ -1,7 +1,7 @@
 import 'package:firebase_project/controller/navbar_controller.dart';
 import 'package:firebase_project/utils/theme.dart';
 import 'package:firebase_project/views/home_page.dart';
-import 'package:firebase_project/views/todo_list_page.dart';
+import 'package:firebase_project/views/expense_list_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
