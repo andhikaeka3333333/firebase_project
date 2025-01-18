@@ -1,12 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_project/models/expense_model.dart';
 import 'package:get/get.dart';
 
-class TodoController extends GetxController {
+class ExpenseController extends GetxController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final RxList<Map<String, dynamic>> expenses = <Map<String, dynamic>>[].obs;
+  final RxList<ExpenseModel> expenses = <ExpenseModel>[].obs;
 
   Rx<String?> titleError = Rx<String?>(null);
   Rx<String?> priceError = Rx<String?>(null);
+  
+  Rx<bool> isLoadingFetch = Rx<bool>(true);
   Rx<bool> isLoadingAdd = Rx<bool>(false);
   Rx<bool> isLoadingUpdate = Rx<bool>(false);
   Rx<bool> isLoadingDelete = Rx<bool>(false);
@@ -20,19 +23,23 @@ class TodoController extends GetxController {
   void fetchData() {
     _firestore.collection('expenses').snapshots().listen((snapshot) {
       expenses.value = snapshot.docs
-          .map((doc) =>
-              {'id': doc.id, 'title': doc['title'], 'price': doc['price']})
+          .map((doc) => ExpenseModel.fromJson(doc.id, doc.data()))
           .toList();
+      isLoadingFetch.value = false;
     });
+  }
+
+  ExpenseModel getData(String id) {
+    final data = expenses.firstWhere((element) => element.id == id);
+    return data; 
   }
 
   Future<void> addExpense(String title, String price) async {
     isLoadingAdd.value = true;
     try {
-      await _firestore.collection('expenses').add({
-        'title': title,
-        'price': price,
-      }).timeout(const Duration(seconds: 10));
+      await _firestore.collection('expenses')
+        .add({ 'title': title, 'price': price, 'checked': false })
+        .timeout(const Duration(seconds: 10));
     } catch (e) {
       isLoadingAdd.value = false;
       rethrow;
@@ -40,12 +47,12 @@ class TodoController extends GetxController {
     isLoadingAdd.value = false;
   }
 
-  Future<void> deleteExpense(String id) async {
+  Future<void> deleteExpense(ExpenseModel data) async {
     isLoadingDelete.value = true;
     try {
       await _firestore
           .collection('expenses')
-          .doc(id)
+          .doc(data.id)
           .delete()
           .timeout(const Duration(seconds: 10));
     } catch (e) {
@@ -55,14 +62,13 @@ class TodoController extends GetxController {
     isLoadingDelete.value = false;
   }
 
-  Future<void> updateExpense(
-      String id, String newTitle, String newPrice) async {
+  Future<void> updateExpense(ExpenseModel data) async {
     isLoadingUpdate.value = true;
     try {
-      await _firestore.collection('expenses').doc(id).update({
-        'title': newTitle,
-        'price': newPrice,
-      }).timeout(const Duration(seconds: 10));
+      await _firestore.collection('expenses')
+        .doc(data.id)
+        .update(data.toJson())
+        .timeout(const Duration(seconds: 10));
     } catch (e) {
       isLoadingUpdate.value = false;
       rethrow;

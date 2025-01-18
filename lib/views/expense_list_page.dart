@@ -6,10 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-import '../controller/todo_controller.dart';
+import '../controller/expense_controller.dart';
+import '../models/expense_model.dart';
 import '../utils/theme.dart';
-
-enum ControllerActions { add, edit }
 
 class TodoListPage extends StatelessWidget {
   TodoListPage({super.key});
@@ -18,7 +17,7 @@ class TodoListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TodoController controller = Get.find();
+    final ExpenseController controller = Get.find();
     final TextEditingController titleController = TextEditingController();
     final TextEditingController priceController = TextEditingController();
 
@@ -96,11 +95,22 @@ class TodoListPage extends StatelessWidget {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12),
                                 ),
-                                title: Text(todo['title'],
+                                title: Text(todo.title,
                                     style: AppTheme.textTheme.labelMedium),
-                                subtitle: Text("Rp. ${todo['price']}",
+                                subtitle: Text("Rp. ${todo.price}",
                                     style: AppTheme.textTheme.labelSmall
                                         .copyWith(color: AppTheme.white60)),
+                                leading: SizedBox(
+                                  width: 28,
+                                  child: Checkbox(
+                                      activeColor: AppTheme.primaryColor,
+                                      checkColor: AppTheme.white100,
+                                      value: todo.checked,
+                                      onChanged: (value) {
+                                        controller.updateExpense(todo.copyWith(
+                                            checked: value ?? todo.checked));
+                                      }),
+                                ),
                                 trailing: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
@@ -112,11 +122,11 @@ class TodoListPage extends StatelessWidget {
                                         final TextEditingController
                                             editTitleController =
                                             TextEditingController(
-                                                text: todo['title']);
+                                                text: todo.title);
                                         final TextEditingController
                                             editPriceController =
                                             TextEditingController(
-                                                text: todo['price'].toString());
+                                                text: todo.price.toString());
 
                                         showCreateUpdateModal(context,
                                             controller: controller,
@@ -129,85 +139,12 @@ class TodoListPage extends StatelessWidget {
                                                     titleController,
                                                     priceController) =>
                                                 updateExpense(
-                                                    todo['id'],
+                                                    todo,
                                                     context,
                                                     controller,
                                                     titleController,
                                                     priceController),
                                             isUpdate: true);
-
-                                        // Get.defaultDialog(
-                                        //   buttonColor: const Color(0xff79d7be),
-                                        //   backgroundColor: const Color(0xff4da1a9),
-                                        //   cancelTextColor: Colors.white,
-                                        //   confirmTextColor: Colors.white,
-                                        //   titleStyle:
-                                        //       const TextStyle(color: Colors.white),
-                                        //   title: "Edit Expense",
-                                        //   content: Column(
-                                        //     children: [
-                                        //       TextFormField(
-                                        //         style: const TextStyle(
-                                        //             color: Color(0xfff6f4f0)),
-                                        //         controller: editTitleController,
-                                        //         decoration: const InputDecoration(
-                                        //           enabledBorder: OutlineInputBorder(
-                                        //             borderSide: BorderSide(
-                                        //                 color: Color(0xfff6f4f0)),
-                                        //           ),
-                                        //           focusedBorder: OutlineInputBorder(
-                                        //             borderSide: BorderSide(
-                                        //                 color: Color(0xfff6f4f0)),
-                                        //           ),
-                                        //           labelText: "Produk",
-                                        //           labelStyle: TextStyle(
-                                        //               color: Color(0xfff6f4f0)),
-                                        //           border: OutlineInputBorder(),
-                                        //         ),
-                                        //         cursorColor:
-                                        //             const Color(0xfff6f4f0),
-                                        //       ),
-                                        //       const SizedBox(height: 20),
-                                        //       TextFormField(
-                                        //         style: const TextStyle(
-                                        //             color: Color(0xfff6f4f0)),
-                                        //         controller: editPriceController,
-                                        //         decoration: const InputDecoration(
-                                        //           enabledBorder: OutlineInputBorder(
-                                        //             borderSide: BorderSide(
-                                        //                 color: Color(0xfff6f4f0)),
-                                        //           ),
-                                        //           focusedBorder: OutlineInputBorder(
-                                        //             borderSide: BorderSide(
-                                        //                 color: Color(0xfff6f4f0)),
-                                        //           ),
-                                        //           labelText: "Produk",
-                                        //           labelStyle: TextStyle(
-                                        //               color: Color(0xfff6f4f0)),
-                                        //           border: OutlineInputBorder(),
-                                        //         ),
-                                        //         cursorColor:
-                                        //             const Color(0xfff6f4f0),
-                                        //       ),
-                                        //     ],
-                                        //   ),
-                                        //   textCancel: "Cancel",
-                                        //   textConfirm: "Save",
-                                        //   onCancel: () {},
-                                        //   onConfirm: () {
-                                        //     if (editTitleController
-                                        //             .text.isNotEmpty &&
-                                        //         editPriceController
-                                        //             .text.isNotEmpty) {
-                                        //       controller.updateExpense(
-                                        //         todo['id'],
-                                        //         editTitleController.text,
-                                        //         editPriceController.text,
-                                        //       );
-                                        //       Get.back();
-                                        //     }
-                                        //   },
-                                        // );
                                       },
                                     ),
                                     IconButton(
@@ -217,28 +154,8 @@ class TodoListPage extends StatelessWidget {
                                         showDeleteModal(context,
                                             controller: controller,
                                             onSubmit: (context, controller) =>
-                                                deleteExpense(todo['id'],
-                                                    context, controller));
-                                        // Get.defaultDialog(
-                                        //   title: "Confirmation",
-                                        //   middleText:
-                                        //       "Are you sure you want to delete '${todo['title']}'?",
-                                        //   backgroundColor: Colors.white,
-                                        //   titleStyle: const TextStyle(
-                                        //       fontWeight: FontWeight.bold),
-                                        //   middleTextStyle:
-                                        //       const TextStyle(fontSize: 16),
-                                        //   textCancel: "No",
-                                        //   textConfirm: "Yes",
-                                        //   cancelTextColor: Colors.black,
-                                        //   confirmTextColor: Colors.white,
-                                        //   buttonColor: Colors.red,
-                                        //   onCancel: () {},
-                                        //   onConfirm: () {
-                                        //     controller.deleteExpense(todo['id']);
-                                        //     Get.back();
-                                        //   },
-                                        // );
+                                                deleteExpense(
+                                                    todo, context, controller));
                                       },
                                     ),
                                   ],
@@ -259,7 +176,7 @@ class TodoListPage extends StatelessWidget {
 
   Future<void> addExpense(
       BuildContext context,
-      TodoController controller,
+      ExpenseController controller,
       TextEditingController titleController,
       TextEditingController priceController) async {
     if (FocusManager.instance.primaryFocus != null) {
@@ -296,9 +213,9 @@ class TodoListPage extends StatelessWidget {
   }
 
   Future<void> updateExpense(
-      String id,
+      ExpenseModel data,
       BuildContext context,
-      TodoController controller,
+      ExpenseController controller,
       TextEditingController titleController,
       TextEditingController priceController) async {
     if (FocusManager.instance.primaryFocus != null) {
@@ -319,8 +236,10 @@ class TodoListPage extends StatelessWidget {
     controller.clearInputErrors();
 
     try {
-      await controller.updateExpense(
-          id, titleController.text, priceController.text);
+      await controller.updateExpense(data.copyWith(
+        title: titleController.text,
+        price: priceController.text,
+      ));
     } on Exception catch (e) {
       // do task with Future after 100 ms
       Future.delayed(const Duration(milliseconds: 200), () async {
@@ -335,10 +254,10 @@ class TodoListPage extends StatelessWidget {
     }
   }
 
-  Future<void> deleteExpense(
-      String id, BuildContext context, TodoController controller) async {
+  Future<void> deleteExpense(ExpenseModel data, BuildContext context,
+      ExpenseController controller) async {
     try {
-      await controller.deleteExpense(id);
+      await controller.deleteExpense(data);
     } on Exception catch (e) {
       // do task with Future after 100 ms
       Future.delayed(const Duration(milliseconds: 200), () async {
@@ -352,7 +271,7 @@ class TodoListPage extends StatelessWidget {
   }
 
   void showCreateUpdateModal(BuildContext context,
-      {required TodoController controller,
+      {required ExpenseController controller,
       required TextEditingController titleController,
       required TextEditingController priceController,
       required dynamic onSubmit,
@@ -383,12 +302,12 @@ class TodoListPage extends StatelessWidget {
                       style: AppTheme.textTheme.titleSmall,
                     ),
                     const SizedBox(height: 32),
-                    TextFieldWidget('Judul/Catatan',
+                    Obx(() => TextFieldWidget('Judul/Catatan',
                         prefixIcon: const Icon(Icons.note_alt_rounded),
                         error: controller.titleError.value,
-                        controller: titleController),
+                        controller: titleController)),
                     const SizedBox(height: 20),
-                    TextFieldWidget('Harga',
+                    Obx(() => TextFieldWidget('Harga',
                         prefixIcon: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -400,7 +319,7 @@ class TodoListPage extends StatelessWidget {
                           ],
                         ),
                         error: controller.priceError.value,
-                        controller: priceController),
+                        controller: priceController)),
                     const SizedBox(height: 32),
                     Obx(() => ButtonWidget(
                         !isUpdate ? 'Tambah Pengeluaran' : 'Simpan Perubahan',
@@ -419,7 +338,7 @@ class TodoListPage extends StatelessWidget {
   }
 
   void showDeleteModal(BuildContext context,
-      {required TodoController controller, required dynamic onSubmit}) {
+      {required ExpenseController controller, required dynamic onSubmit}) {
     if (modalOpened) return;
     modalOpened = true;
     showMaterialModalBottomSheet(
