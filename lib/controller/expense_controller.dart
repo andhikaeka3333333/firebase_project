@@ -1,9 +1,13 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_project/controller/auth_controller.dart';
 import 'package:firebase_project/models/expense_model.dart';
 import 'package:get/get.dart';
 
 class ExpenseController extends GetxController {
+  final AuthController authController = Get.find();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final RxList<ExpenseModel> expenses = <ExpenseModel>[].obs;
 
@@ -23,9 +27,10 @@ class ExpenseController extends GetxController {
 
   void fetchData() {
     final user = FirebaseAuth.instance.currentUser;
-    _firestore.collection('expenses')
-      .where('user', isEqualTo: user?.uid)
-      .snapshots()
+    var reference = _firestore.collection('expenses')
+      .where('user', isEqualTo: user?.uid);
+
+    authController.subscription = reference.snapshots()
       .listen((snapshot) {
         expenses.value = snapshot.docs
             .map((doc) => ExpenseModel.fromJson(doc.id, doc.data()))

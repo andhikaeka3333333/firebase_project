@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import '../controller/auth_controller.dart';
 import '../utils/modals.dart';
 import '../utils/theme.dart';
 import '../widgets/button_widget.dart';
-import '../widgets/my_color.dart';
-import '../widgets/my_image.dart';
-import '../widgets/my_text.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});

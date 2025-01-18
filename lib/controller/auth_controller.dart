@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:get/get.dart';
@@ -6,6 +9,7 @@ import '../routes/myapp_route.dart';
 
 class AuthController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  StreamSubscription<QuerySnapshot>? subscription;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   var user = Rx<User?>(null);
@@ -44,6 +48,7 @@ class AuthController extends GetxController {
   Future<void> logout() async {
     isLoading.value = true;
     try {
+      subscription?.cancel();
       await _googleSignIn.signOut();
       await _auth.signOut();
       user.value = null;
