@@ -65,13 +65,13 @@ class NotificationPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20, right: 10, bottom: 23),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 20, right: 10, bottom: 23),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
-                              children: const [
+                              children: [
                                 MyText(
                                   text: 'Berita',
                                   fontSize: 14,
@@ -87,8 +87,8 @@ class NotificationPage extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 8),
-                            const MyText(
+                            SizedBox(height: 8),
+                            MyText(
                               text: 'Rupiah Terangkat ke Rp16.267 Pagi Ini',
                               fontSize: 16,
                               colors: white,
