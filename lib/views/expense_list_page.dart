@@ -10,8 +10,8 @@ import '../controller/expense_controller.dart';
 import '../models/expense_model.dart';
 import '../utils/theme.dart';
 
-class TodoListPage extends StatelessWidget {
-  TodoListPage({super.key});
+class ExpenseListPage extends StatelessWidget {
+  ExpenseListPage({super.key});
 
   bool modalOpened = false;
 

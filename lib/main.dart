@@ -14,7 +14,6 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  await NotifController().initNotifications();
 
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp
@@ -28,10 +27,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    NotifController notifController = Get.put(NotifController());
+    notifController.initNotifications();
     final AuthController authController = Get.put(AuthController());
 
     return GetMaterialApp(
       title: 'Menyala Abangku',
+      navigatorKey: Get.key,
       initialRoute: authController.user.value != null ? MyappRoute.navbar : MyappRoute.login,
       theme: AppTheme.getThemeData(),
       getPages: AppPages.pages,
