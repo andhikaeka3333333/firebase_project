@@ -14,7 +14,7 @@ import '../views/login_page.dart';
 class MyappRoute {
   static const login = '/login';
   static const home = '/home';
-  static const todo = '/todo';
+  static const expense = '/expense';
   static const navbar = '/navbar';
   static const notif = '/notification';
 }
@@ -22,27 +22,27 @@ class MyappRoute {
 class AppPages {
   static final pages = [
     GetPage(
-      name: '/login',
+      name: MyappRoute.login,
       page: () => const LoginPage(),
       binding: AuthBinding(),
     ),
     GetPage(
-      name: '/navbar',
+      name: MyappRoute.navbar,
       page: () => Navbar(),
       binding: NavbarBinding(),
     ),
     GetPage(
-      name: '/home',
+      name: MyappRoute.home,
       page: () => const HomePage(),
       binding: AuthBinding(),
     ),
     GetPage(
-      name: '/todo',
-      page: () => TodoListPage(),
+      name: MyappRoute.expense,
+      page: () => ExpenseListPage(),
       binding: ExpenseBinding(),
     ),
     GetPage(
-      name: '/notification',
+      name: MyappRoute.notif,
       page: () => const NotificationPage(),
       binding: NotifBinding(),
     ),

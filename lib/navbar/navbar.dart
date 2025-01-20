@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
+import '../views/notification_page.dart';
+
 class Navbar extends StatelessWidget {
   Navbar({super.key});
 
@@ -17,7 +19,7 @@ class Navbar extends StatelessWidget {
       return Scaffold(
         body: IndexedStack(
           index: navBarController.tabIndex,
-          children: [TodoListPage(), const HomePage()],
+          children: [ExpenseListPage(), const NotificationPage(), const HomePage()],
         ),
         bottomNavigationBar: Container(
           decoration: const BoxDecoration(
@@ -38,6 +40,7 @@ class Navbar extends StatelessWidget {
               onTap: navBarController.changeTabIndex,
               items: [
                 _bottombarItem(Icons.home_rounded, "Home"),
+                _bottombarItem(Icons.notifications, "Notifications"),
                 _bottombarItem(CupertinoIcons.person_crop_circle_fill, "Profile"),
               ],
             ),
