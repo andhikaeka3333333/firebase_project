@@ -1,4 +1,5 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:firebase_project/controller/auth_controller.dart';
 import 'package:firebase_project/routes/myapp_route.dart';
 import 'package:get/get.dart';
 
@@ -6,14 +7,17 @@ import 'navbar_controller.dart';
 
 class NotifController extends GetxController {
   final _firebaseMessaging = FirebaseMessaging.instance;
+  late final String? fcmToken;
+
+  AuthController authController = Get.put(AuthController());
 
   Future<void> initNotifications() async {
     await _firebaseMessaging.requestPermission();
 
-    final fCMToken = await _firebaseMessaging.getToken();
+    fcmToken = await _firebaseMessaging.getToken();
+    print('Token: $fcmToken');
 
-    print('Token: $fCMToken');
-
+    authController.addFcmToken(token: fcmToken);
     initPushNotifications();
   }
 
